@@ -1,0 +1,39 @@
+---
+title: "交互按钮动画"
+description: "一个 Rive 交互按钮动画的嵌入与预览教程"
+createdAt: "2026-04-21"
+image: "https://huazispace.s3.bitiful.net/2026/04/12838ca254871f8ad346f41385922fb9.png"
+category: "blog"
+tags: ["Rive", "互动动画"]
+---
+
+## Rive 按钮动画预览
+
+在网页中嵌入并预览一个 Rive 交互按钮动画。
+
+你可以下载这个 Rive 动画的源文件，用于学习和参考。
+
+### HTML 结构
+
+```html
+<canvas id="rive-canvas"></canvas>
+```
+
+### Rive 运行时初始化
+
+```javascript
+new rive.Rive({
+  src: "./learnrivebutton.riv",
+  stateMachines: "State Machine 1",
+  autoplay: true,
+  canvas: document.getElementById("rive-canvas"),
+  onLoad: () => {
+    r.resizeDrawingSurfaceToCanvas()
+  },
+})
+```
+
+### 关键配置说明
+
+- `stateMachines`: 状态机名称，用于驱动交互状态
+- `automaticallyHandleEvents`: 自动处理悬停、点击等交互事件

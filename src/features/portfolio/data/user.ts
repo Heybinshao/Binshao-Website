@@ -1,0 +1,53 @@
+import type { User } from "@/features/portfolio/types/user"
+
+export const USER: User = {
+  firstName: "彬少",
+  lastName: "",
+  displayName: "彬少「Binshao」",
+  username: "HeyBinshao",
+  gender: "male",
+  pronouns: "he/him",
+  bio: "内容创作者 & 设计师。播客「硬核糖」主理人，公众号「宝藏彬少」。",
+  flipSentences: [
+    "INFJ",
+    "摩羯座",
+    "内容创作者",
+    "设计师",
+    "播客主理人",
+    "工具爱好者",
+    "夜猫子",
+    "宝藏彬少",
+    "硬核糖",
+  ],
+  address: "广东·中山",
+  phoneNumberB64: "",
+  emailB64: "Ymluc2hhb2dnQGdtYWlsLmNvbQ==",
+  website: "https://binshao.top",
+  jobTitle: "内容创作者 · 设计师",
+  jobs: [
+    {
+      title: "内容创作者 · 设计师",
+      company: "Freelance",
+      website: "https://binshao.top",
+    },
+  ],
+  about: `内容创作者 & 设计师。公众号「宝藏彬少」主理人，播客「硬核糖」筹备中。热爱探索与分享。`,
+  avatar: "/binshao.jpg",
+  avatarVariants: {
+    lightOff: "/binshao.jpg",
+    lightOn: "/binshao.jpg",
+    darkOff: "/binshao.jpg",
+    darkOn: "/binshao.jpg",
+  },
+  ogImage: "/OGimage.jpg",
+  namePronunciationUrl: "",
+  timeZone: "Asia/Shanghai",
+  keywords: [
+    "彬少",
+    "宝藏彬少",
+    "硬核糖",
+    "设计师",
+    "内容创作者",
+  ],
+  dateCreated: "2026-01-20",
+}
