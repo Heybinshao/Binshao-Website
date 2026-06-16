@@ -61,7 +61,7 @@ export default async function BlogPost({ params }: Props) {
       <div className="stripe-divider screen-line-after mx-auto md:max-w-3xl" />
 
       <div className="min-h-svh">
-        {/* Toolbar: Blog back + Copy/View/Share/PrevNext */}
+        {/* Toolbar */}
         <div className="screen-line-after flex items-center justify-between p-2 pl-4">
           <Button variant="link" size="sm" asChild>
             <Link href="/blog" className="gap-2 font-mono text-muted-foreground hover:text-foreground border-none px-0">
@@ -69,16 +69,9 @@ export default async function BlogPost({ params }: Props) {
               Blog
             </Link>
           </Button>
-
           <div className="flex items-center gap-2">
-            <LLMCopyButtonWithViewOptions
-              markdownUrl={`/blog/${slug}`}
-            />
-            <DocShareMenu
-              title={post.metadata.title}
-              url={`/blog/${slug}`}
-            />
-
+            <LLMCopyButtonWithViewOptions markdownUrl={`/blog/${slug}`} />
+            <DocShareMenu title={post.metadata.title} url={`/blog/${slug}`} />
             {previous ? (
               <Button variant="secondary" size="icon-sm" asChild>
                 <Link href={`/blog/${previous.slug}` as any} aria-label="Previous">
@@ -90,7 +83,6 @@ export default async function BlogPost({ params }: Props) {
                 <ArrowLeftIcon className="size-3.5" />
               </Button>
             )}
-
             {next ? (
               <Button variant="secondary" size="icon-sm" asChild>
                 <Link href={`/blog/${next.slug}` as any} aria-label="Next">
@@ -105,10 +97,8 @@ export default async function BlogPost({ params }: Props) {
           </div>
         </div>
 
-        {/* Stripe divider */}
         <div className="stripe-divider screen-line-after mx-auto md:max-w-3xl" />
 
-        {/* Cover image */}
         {post.metadata.image && (
           <div className="px-4 pt-4">
             <img
@@ -119,7 +109,6 @@ export default async function BlogPost({ params }: Props) {
           </div>
         )}
 
-        {/* Title row */}
         <div className="screen-line-after px-4 pt-6 pb-4">
           <h1 className="text-3xl font-semibold">{post.metadata.title}</h1>
           <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
@@ -129,32 +118,23 @@ export default async function BlogPost({ params }: Props) {
             {post.metadata.tags && post.metadata.tags.length > 0 && (
               <span className="flex flex-wrap gap-1.5">
                 {post.metadata.tags.map((tag: string) => (
-                  <span
-                    key={tag}
-                    className="inline-flex items-center rounded-lg border bg-zinc-50 px-1.5 py-0.5 text-xs text-muted-foreground dark:bg-zinc-900"
-                  >
-                    {tag}
-                  </span>
+                  <span key={tag} className="inline-flex items-center rounded-lg border bg-zinc-50 px-1.5 py-0.5 text-xs text-muted-foreground dark:bg-zinc-900">{tag}</span>
                 ))}
               </span>
             )}
           </div>
         </div>
 
-        {/* Stripe divider between title and content */}
         <div className="stripe-divider screen-line-after mx-auto h-4" />
 
-        {/* Article content */}
         <div className="px-4 py-6">
           <article className="prose prose-zinc dark:prose-invert max-w-none">
             <MDXContent content={post.content} />
           </article>
         </div>
 
-        {/* Stripe divider between content and bottom toolbar */}
         <div className="stripe-divider screen-line-after mx-auto h-4" />
 
-        {/* Bottom navigation */}
         <div className="flex items-center justify-between p-2 pl-4">
           <Button variant="link" size="sm" asChild>
             <Link href="/blog" className="gap-2 font-mono text-muted-foreground hover:text-foreground border-none px-0">
@@ -162,7 +142,6 @@ export default async function BlogPost({ params }: Props) {
               Blog
             </Link>
           </Button>
-
           <div className="flex items-center gap-1">
             {previous && (
               <Button variant="secondary" size="icon-sm" asChild>
@@ -180,11 +159,7 @@ export default async function BlogPost({ params }: Props) {
             )}
           </div>
         </div>
-
       </div>
-
-      {/* Stripe divider above footer */}
-      <div className="stripe-divider mx-auto" />
     </>
   )
 }
