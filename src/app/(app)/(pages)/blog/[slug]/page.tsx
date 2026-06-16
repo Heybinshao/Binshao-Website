@@ -62,7 +62,7 @@ export default async function BlogPost({ params }: Props) {
 
       <div className="min-h-svh">
         {/* Toolbar: Blog back + Copy/View/Share/PrevNext */}
-        <div className="flex items-center justify-between p-2 pl-4">
+        <div className="screen-line-after flex items-center justify-between p-2 pl-4">
           <Button variant="link" size="sm" asChild>
             <Link href="/blog" className="gap-2 font-mono text-muted-foreground hover:text-foreground border-none px-0">
               <ArrowLeftIcon className="size-3.5" />
@@ -142,7 +142,7 @@ export default async function BlogPost({ params }: Props) {
         </div>
 
         {/* Stripe divider between title and content */}
-        <div className="stripe-divider screen-line-after mx-auto" />
+        <div className="stripe-divider screen-line-after mx-auto h-10" />
 
         {/* Article content */}
         <div className="px-4 py-6">
@@ -151,8 +151,11 @@ export default async function BlogPost({ params }: Props) {
           </article>
         </div>
 
+        {/* Stripe divider between content and bottom toolbar */}
+        <div className="stripe-divider screen-line-after mx-auto h-10" />
+
         {/* Bottom navigation */}
-        <div className="screen-line-before flex items-center justify-between p-2 pl-4">
+        <div className="flex items-center justify-between p-2 pl-4">
           <Button variant="link" size="sm" asChild>
             <Link href="/blog" className="gap-2 font-mono text-muted-foreground hover:text-foreground border-none px-0">
               <ArrowLeftIcon className="size-3.5" />
@@ -177,6 +180,9 @@ export default async function BlogPost({ params }: Props) {
             )}
           </div>
         </div>
+
+        {/* Stripe divider between bottom toolbar and footer */}
+        <div className="stripe-divider mx-auto" />
       </div>
     </>
   )
