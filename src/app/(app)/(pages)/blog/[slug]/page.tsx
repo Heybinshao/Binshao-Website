@@ -142,7 +142,7 @@ export default async function BlogPost({ params }: Props) {
         </div>
 
         {/* Stripe divider between title and content */}
-        <div className="stripe-divider screen-line-after mx-auto h-10" />
+        <div className="stripe-divider screen-line-after mx-auto h-4" />
 
         {/* Article content */}
         <div className="px-4 py-6">
@@ -152,7 +152,7 @@ export default async function BlogPost({ params }: Props) {
         </div>
 
         {/* Stripe divider between content and bottom toolbar */}
-        <div className="stripe-divider screen-line-after mx-auto h-10" />
+        <div className="stripe-divider screen-line-after mx-auto h-4" />
 
         {/* Bottom navigation */}
         <div className="flex items-center justify-between p-2 pl-4">
@@ -181,9 +181,10 @@ export default async function BlogPost({ params }: Props) {
           </div>
         </div>
 
-        {/* Stripe divider between bottom toolbar and footer */}
-        <div className="stripe-divider mx-auto" />
       </div>
+
+      {/* Stripe divider above footer */}
+      <div className="stripe-divider mx-auto" />
     </>
   )
 }
