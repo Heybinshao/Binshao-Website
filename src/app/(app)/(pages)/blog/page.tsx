@@ -58,7 +58,7 @@ export default function Page() {
         </div>
 
         <div className="px-3 py-4 sm:px-4">
-          <p className="text-sm text-balance text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             {description}
           </p>
         </div>
