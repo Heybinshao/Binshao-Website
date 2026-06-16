@@ -1,12 +1,15 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowLeftIcon } from "lucide-react"
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react"
 
-import { getDocBySlug } from "@/features/doc/data/documents"
+import { getDocBySlug, findNeighbour, getAllDocs } from "@/features/doc/data/documents"
 import { jsonLdBreadcrumbList, JsonLdScript } from "@/lib/json-ld"
 import { X_HANDLE } from "@/config/site"
 import { MDXContent } from "./mdx-content"
+import { LLMCopyButtonWithViewOptions } from "@/features/doc/components/doc-page-actions"
+import { DocShareMenu } from "@/features/doc/components/doc-share-menu"
+import { Button } from "@/components/ui/button"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -41,6 +44,9 @@ export default async function BlogPost({ params }: Props) {
   const post = getDocBySlug(slug)
   if (!post) notFound()
 
+  const allPosts = getAllDocs()
+  const { previous, next } = findNeighbour(allPosts, slug)
+
   return (
     <>
       <JsonLdScript
@@ -55,15 +61,48 @@ export default async function BlogPost({ params }: Props) {
       <div className="stripe-divider screen-line-after mx-auto md:max-w-3xl" />
 
       <div className="min-h-svh">
-        {/* Back link */}
-        <div className="screen-line-after px-4 py-2">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeftIcon className="size-3.5" />
-            返回博客
-          </Link>
+        {/* Toolbar: Blog back + Copy/View/Share/PrevNext */}
+        <div className="flex items-center justify-between p-2 pl-4">
+          <Button variant="link" size="sm" asChild>
+            <Link href="/blog" className="gap-1 font-mono text-muted-foreground hover:text-foreground border-none px-0">
+              <ArrowLeftIcon className="size-3.5" />
+              Blog
+            </Link>
+          </Button>
+
+          <div className="flex items-center gap-2">
+            <LLMCopyButtonWithViewOptions
+              markdownUrl={`/blog/${slug}`}
+            />
+            <DocShareMenu
+              title={post.metadata.title}
+              url={`/blog/${slug}`}
+            />
+
+            {previous ? (
+              <Button variant="secondary" size="icon-sm" asChild>
+                <Link href={`/blog/${previous.slug}` as any} aria-label="Previous">
+                  <ArrowLeftIcon className="size-3.5" />
+                </Link>
+              </Button>
+            ) : (
+              <Button variant="secondary" size="icon-sm" disabled aria-label="No previous">
+                <ArrowLeftIcon className="size-3.5" />
+              </Button>
+            )}
+
+            {next ? (
+              <Button variant="secondary" size="icon-sm" asChild>
+                <Link href={`/blog/${next.slug}` as any} aria-label="Next">
+                  <ArrowRightIcon className="size-3.5" />
+                </Link>
+              </Button>
+            ) : (
+              <Button variant="secondary" size="icon-sm" disabled aria-label="No next">
+                <ArrowRightIcon className="size-3.5" />
+              </Button>
+            )}
+          </div>
         </div>
 
         {/* Cover image */}
@@ -106,15 +145,31 @@ export default async function BlogPost({ params }: Props) {
           </article>
         </div>
 
-        {/* Bottom nav */}
-        <div className="screen-line-before px-4 py-4">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeftIcon className="size-3.5" />
-            返回所有文章
-          </Link>
+        {/* Bottom navigation */}
+        <div className="screen-line-before flex items-center justify-between p-2 pl-4">
+          <Button variant="link" size="sm" asChild>
+            <Link href="/blog" className="gap-1 font-mono text-muted-foreground hover:text-foreground border-none px-0">
+              <ArrowLeftIcon className="size-3.5" />
+              Blog
+            </Link>
+          </Button>
+
+          <div className="flex items-center gap-1">
+            {previous && (
+              <Button variant="secondary" size="icon-sm" asChild>
+                <Link href={`/blog/${previous.slug}` as any} aria-label={`Previous: ${previous.metadata.title}`}>
+                  <ArrowLeftIcon className="size-3.5" />
+                </Link>
+              </Button>
+            )}
+            {next && (
+              <Button variant="secondary" size="icon-sm" asChild>
+                <Link href={`/blog/${next.slug}` as any} aria-label={`Next: ${next.metadata.title}`}>
+                  <ArrowRightIcon className="size-3.5" />
+                </Link>
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </>
