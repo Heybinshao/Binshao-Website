@@ -64,7 +64,7 @@ export default async function BlogPost({ params }: Props) {
         {/* Toolbar: Blog back + Copy/View/Share/PrevNext */}
         <div className="flex items-center justify-between p-2 pl-4">
           <Button variant="link" size="sm" asChild>
-            <Link href="/blog" className="gap-1 font-mono text-muted-foreground hover:text-foreground border-none px-0">
+            <Link href="/blog" className="gap-2 font-mono text-muted-foreground hover:text-foreground border-none px-0">
               <ArrowLeftIcon className="size-3.5" />
               Blog
             </Link>
@@ -148,7 +148,7 @@ export default async function BlogPost({ params }: Props) {
         {/* Bottom navigation */}
         <div className="screen-line-before flex items-center justify-between p-2 pl-4">
           <Button variant="link" size="sm" asChild>
-            <Link href="/blog" className="gap-1 font-mono text-muted-foreground hover:text-foreground border-none px-0">
+            <Link href="/blog" className="gap-2 font-mono text-muted-foreground hover:text-foreground border-none px-0">
               <ArrowLeftIcon className="size-3.5" />
               Blog
             </Link>
