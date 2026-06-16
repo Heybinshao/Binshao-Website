@@ -1,7 +1,7 @@
 export function SiteFooter() {
   return (
     <footer className="max-w-screen overflow-x-hidden px-2">
-      <div className="screen-line-before mx-auto border-x border-edge pt-4 md:max-w-3xl">
+      <div className="screen-line-before mx-auto pt-4 md:max-w-3xl">
         <p className="mb-4 px-4 text-center text-sm text-balance text-muted-foreground">
           此网站基于开源项目{" "}
           <a
