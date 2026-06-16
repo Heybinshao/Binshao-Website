@@ -105,6 +105,9 @@ export default async function BlogPost({ params }: Props) {
           </div>
         </div>
 
+        {/* Stripe divider */}
+        <div className="stripe-divider mx-auto md:max-w-3xl" />
+
         {/* Cover image */}
         {post.metadata.image && (
           <div className="px-4 pt-4">
