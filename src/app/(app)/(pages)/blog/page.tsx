@@ -52,7 +52,7 @@ export default function Page() {
       <div className="screen-line-before mx-auto md:max-w-3xl" />
       <div className="stripe-divider screen-line-after mx-auto md:max-w-3xl" />
 
-      <div className="min-h-svh mx-auto border-x border-edge md:max-w-3xl">
+      <div className="min-h-svh">
         <div className="screen-line-after px-4">
           <h1 className="text-3xl font-semibold">{title}</h1>
         </div>
