@@ -106,7 +106,7 @@ export default async function BlogPost({ params }: Props) {
         </div>
 
         {/* Stripe divider */}
-        <div className="stripe-divider mx-auto md:max-w-3xl" />
+        <div className="stripe-divider screen-line-after mx-auto md:max-w-3xl" />
 
         {/* Cover image */}
         {post.metadata.image && (
@@ -140,6 +140,9 @@ export default async function BlogPost({ params }: Props) {
             )}
           </div>
         </div>
+
+        {/* Stripe divider between title and content */}
+        <div className="stripe-divider screen-line-after mx-auto" />
 
         {/* Article content */}
         <div className="px-4 py-6">
