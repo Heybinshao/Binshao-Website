@@ -11,9 +11,9 @@ const ScrollToTop = dynamic(() =>
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="group/layout mx-auto border-x border-edge md:max-w-3xl">
+    <div className="group/layout">
       <SiteHeader />
-      <main className="px-2">{children}</main>
+      <main className="max-w-screen overflow-clip px-2">{children}</main>
       <SiteFooter />
       <ScrollToTop />
       <CommandMenu docs={[]} blocks={[]} />
