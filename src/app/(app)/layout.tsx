@@ -14,8 +14,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <div className="group/layout">
       <SiteHeader />
       <main className="max-w-screen overflow-clip px-2">{children}</main>
-      <div className="screen-line-before mx-auto" />
-      <div className="stripe-divider mx-auto" />
       <SiteFooter />
       <ScrollToTop />
       <CommandMenu docs={[]} blocks={[]} />
