@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { ArrowLeftIcon } from "lucide-react"
 
 import { getDocBySlug } from "@/features/doc/data/documents"
+import { jsonLdBreadcrumbList, JsonLdScript } from "@/lib/json-ld"
 import { X_HANDLE } from "@/config/site"
 import { MDXContent } from "./mdx-content"
 
@@ -42,12 +43,20 @@ export default async function BlogPost({ params }: Props) {
 
   return (
     <>
+      <JsonLdScript
+        data={jsonLdBreadcrumbList([
+          { name: "Home", href: "/" },
+          { name: "Blog", href: "/blog" },
+          { name: post.metadata.title, href: `/blog/${slug}` },
+        ])}
+      />
+
       <div className="screen-line-before mx-auto md:max-w-3xl" />
       <div className="stripe-divider screen-line-after mx-auto md:max-w-3xl" />
 
-      <article className="min-h-svh">
+      <div className="min-h-svh">
         {/* Back link */}
-        <div className="screen-line-after px-4">
+        <div className="screen-line-after px-4 py-2">
           <Link
             href="/blog"
             className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -57,29 +66,9 @@ export default async function BlogPost({ params }: Props) {
           </Link>
         </div>
 
-        {/* Title */}
-        <div className="px-4 pt-6 pb-2">
-          <h1 className="text-3xl font-semibold">{post.metadata.title}</h1>
-          {post.metadata.tags && (
-            <div className="mt-2 flex flex-wrap gap-1.5">
-              {post.metadata.tags.map((tag: string) => (
-                <span
-                  key={tag}
-                  className="inline-flex items-center rounded-lg border bg-zinc-50 px-1.5 py-0.5 text-xs text-muted-foreground dark:bg-zinc-900"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-          <time className="mt-2 block text-sm text-muted-foreground">
-            {new Date(post.metadata.createdAt).toISOString().slice(0, 10).replace(/-/g, ".")}
-          </time>
-        </div>
-
         {/* Cover image */}
         {post.metadata.image && (
-          <div className="px-4 pb-6">
+          <div className="px-4 pt-4">
             <img
               src={post.metadata.image}
               alt={post.metadata.title}
@@ -88,13 +77,46 @@ export default async function BlogPost({ params }: Props) {
           </div>
         )}
 
-        {/* Content */}
-        <div className="border-t border-edge px-4 py-6">
-          <div className="prose prose-zinc dark:prose-invert max-w-none">
-            <MDXContent content={post.content} />
+        {/* Title row */}
+        <div className="screen-line-after px-4 pt-6 pb-4">
+          <h1 className="text-3xl font-semibold">{post.metadata.title}</h1>
+          <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+            <time dateTime={post.metadata.createdAt}>
+              {new Date(post.metadata.createdAt).toISOString().slice(0, 10).replace(/-/g, ".")}
+            </time>
+            {post.metadata.tags && post.metadata.tags.length > 0 && (
+              <span className="flex flex-wrap gap-1.5">
+                {post.metadata.tags.map((tag: string) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center rounded-lg border bg-zinc-50 px-1.5 py-0.5 text-xs text-muted-foreground dark:bg-zinc-900"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </span>
+            )}
           </div>
         </div>
-      </article>
+
+        {/* Article content */}
+        <div className="px-4 py-6">
+          <article className="prose prose-zinc dark:prose-invert max-w-none">
+            <MDXContent content={post.content} />
+          </article>
+        </div>
+
+        {/* Bottom nav */}
+        <div className="screen-line-before px-4 py-4">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ArrowLeftIcon className="size-3.5" />
+            返回所有文章
+          </Link>
+        </div>
+      </div>
     </>
   )
 }
