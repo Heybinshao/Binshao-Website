@@ -159,9 +159,10 @@ export default async function BlogPost({ params }: Props) {
             )}
           </div>
         </div>
-
-        <div className="stripe-divider mx-auto" />
       </div>
+
+      <div className="screen-line-before mx-auto" />
+      <div className="stripe-divider mx-auto" />
     </>
   )
 }

@@ -66,6 +66,7 @@ export default function Page() {
         <BlogFilter allPosts={allPosts} allTags={allTags} />
       </div>
 
+      <div className="screen-line-before mx-auto" />
       <div className="stripe-divider mx-auto" />
     </>
   )
