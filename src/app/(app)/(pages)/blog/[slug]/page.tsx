@@ -128,7 +128,7 @@ export default async function BlogPost({ params }: Props) {
         <div className="stripe-divider screen-line-after mx-auto h-4" />
 
         <div className="screen-line-after px-4 py-6">
-          <article className="prose prose-zinc dark:prose-invert max-w-none">
+          <article className="prose max-w-none prose-ncdai prose-zinc dark:prose-invert">
             <MDXContent content={post.content} />
           </article>
         </div>
