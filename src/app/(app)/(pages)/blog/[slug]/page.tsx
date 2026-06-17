@@ -7,9 +7,9 @@ import { getDocBySlug, findNeighbour, getAllDocs } from "@/features/doc/data/doc
 import { jsonLdBreadcrumbList, JsonLdScript } from "@/lib/json-ld"
 import { X_HANDLE } from "@/config/site"
 import { MDXContent } from "./mdx-content"
-import { LLMCopyButtonWithViewOptions } from "@/features/doc/components/doc-page-actions"
 import { DocShareMenu } from "@/features/doc/components/doc-share-menu"
 import { Button } from "@/components/ui/button"
+import { CopyMDButton } from "./copy-md-button"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -70,7 +70,7 @@ export default async function BlogPost({ params }: Props) {
             </Link>
           </Button>
           <div className="flex items-center gap-2">
-            <LLMCopyButtonWithViewOptions markdownUrl={`/blog/${slug}`} />
+            <CopyMDButton content={post.content} />
             <DocShareMenu title={post.metadata.title} url={`/blog/${slug}`} />
             {previous ? (
               <Button variant="secondary" size="icon-sm" asChild>
