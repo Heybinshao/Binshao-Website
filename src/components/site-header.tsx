@@ -88,7 +88,7 @@ export function SiteHeader() {
     else setThemeMode("light")
   }, [])
 
-  // 监听系统深色模式变化 → 无条件覆盖
+  // 监听系统深色模式变化 → 无条件覆盖 localStorage 和当前主题
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)")
     const handler = (e: MediaQueryListEvent) => {
@@ -111,8 +111,12 @@ export function SiteHeader() {
 
     if (mode === "sunny") {
       html.classList.add("sunny", "light")
+      localStorage.setItem("theme", "light")
+      localStorage.setItem("theme-mode", "sunny")
     } else {
       html.classList.add(mode)
+      localStorage.setItem("theme", mode)
+      localStorage.setItem("theme-mode", "")
     }
 
     const meta = document.querySelector('meta[name="theme-color"]')
