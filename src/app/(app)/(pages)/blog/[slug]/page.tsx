@@ -104,7 +104,7 @@ export default async function BlogPost({ params }: Props) {
             <img
               src={post.metadata.image}
               alt={post.metadata.title}
-              className="w-full rounded-xl ring-1 ring-black/10 ring-inset dark:ring-white/10"
+              className="w-full rounded-xl object-cover ring-1 ring-black/10 ring-inset dark:ring-white/10"
             />
           </div>
         )}
