@@ -22,33 +22,18 @@ function getWebSiteJsonLd(): WithContext<WebSite> {
 }
 
 // 同步主题脚本：在 React 渲染前执行，消除闪白和第一帧样式异常
+// 规则：仅跟随系统 prefers-color-scheme，不读写 localStorage 锁定
 const themeScript = String.raw`
   try {
     var html = document.documentElement
-    var theme = localStorage.getItem('theme')
-    var mode = localStorage.getItem('theme-mode')
     var meta = document.querySelector('meta[name="theme-color"]')
 
-    // 默认 sunny 主题
-    if (mode === 'sunny') {
-      html.classList.add('sunny', 'light')
-      if (meta) meta.setAttribute('content', '#f5f1ea')
-    } else if (theme === 'dark') {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       html.classList.add('dark')
       if (meta) meta.setAttribute('content', '${META_THEME_COLORS.dark}')
-    } else if (theme === 'light') {
-      html.classList.add('light')
-      if (meta) meta.setAttribute('content', '${META_THEME_COLORS.light}')
     } else {
-      // 无 localStorage 偏好 → 跟随系统
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        html.classList.add('dark')
-        if (meta) meta.setAttribute('content', '${META_THEME_COLORS.dark}')
-      } else {
-        // 默认 sunny 主题
-        html.classList.add('sunny', 'light')
-        if (meta) meta.setAttribute('content', '#f5f1ea')
-      }
+      html.classList.add('sunny', 'light')
+      if (meta) meta.setAttribute('content', '#f5f1ea')
     }
   } catch (_) {}
 

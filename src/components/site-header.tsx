@@ -88,21 +88,16 @@ export function SiteHeader() {
     else setThemeMode("light")
   }, [])
 
-  // 监听系统深色模式变化
+  // 监听系统深色模式变化 → 无条件覆盖
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)")
     const handler = (e: MediaQueryListEvent) => {
-      // 只在用户没有手动设置过 localStorage 的情况下跟随系统
-      const theme = localStorage.getItem("theme")
-      const mode = localStorage.getItem("theme-mode")
-      if (theme || mode) return
-      const next = e.matches ? "dark" : "sunny"
-      if (next === "sunny") {
+      if (e.matches) {
+        applyTheme("dark")
+        setThemeMode("dark")
+      } else {
         applyTheme("sunny")
         setThemeMode("sunny")
-      } else {
-        applyTheme(next)
-        setThemeMode(next)
       }
     }
     mq.addEventListener("change", handler)
@@ -116,12 +111,8 @@ export function SiteHeader() {
 
     if (mode === "sunny") {
       html.classList.add("sunny", "light")
-      localStorage.setItem("theme", "light")
-      localStorage.setItem("theme-mode", "sunny")
     } else {
       html.classList.add(mode)
-      localStorage.setItem("theme", mode)
-      localStorage.setItem("theme-mode", "")
     }
 
     const meta = document.querySelector('meta[name="theme-color"]')
