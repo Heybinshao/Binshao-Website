@@ -196,3 +196,57 @@ stripe-divider h-8（斜纹，无线，与 footer 隔离）
 ### 已移除的 huazi 文章
 `ai-tools-website-workflow`, `blueweekly-to-design-stroll`, `design-stroll-2025-review`, `design-stroll-workflow`, `ios-widgets-web-statistics`, `rive-button-preview`, `rive-preview-plugin-retrospective`, `wechat-coze-aianswer`
 
+---
+
+## 11. 文章提取与渲染优化
+
+### 11.1 公众号文章提取流程
+从微信公众平台 HTML 提取文章并转为 Markdown 的流程（`html_to_md`）：
+1. 去除微信专用包装标签（section/span/mp-common）
+2. 转换代码块（`<pre><code>` → ` ``` `）
+3. 转换标题（h2/h3 → ##/###）
+4. 转换加粗/斜体（strong/em → **/*）
+5. 转换图片为代理 URL（`/api/img?url=...%3Fwx_fmt%3Dxxx`）
+6. 转换列表（嵌套 ul/li 保留缩进层级）
+7. 转换表格（thead/tbody/tr/th/td → `| --- |`）
+8. 转换引用（blockquote → `>`）
+9. 转换分割线/换行/段落
+10. 清理残留 HTML 标签
+11. 列表/表格后补空白行防渲染粘连
+
+### 11.2 Markdown 渲染组件
+`src/app/(app)/(pages)/blog/[slug]/mdx-content.tsx`
+
+使用 `react-markdown` + `remarkGfm` + `rehypeSlug`，自定义覆盖以下组件：
+
+| 组件 | 渲染方式 |
+|------|---------|
+| `table` | `w-full` 包裹 `overflow-x-auto`，`border-collapse border border-edge` |
+| `thead` | `bg-muted/50` + `border-b` 表头底边 |
+| `tr` | `border-b border-edge`，最后一行无底边 |
+| `th`/`td` | `border-r` 右边框 + `px-3 py-2`，最后一列无边 |
+| `pre` | 圆角边框 + `bg-muted/30` + `p-4` + `text-foreground` + `whitespace-pre-wrap` 自动换行 |
+| `code`（行内） | 圆角边框 + `bg-muted/50` + `px-1.5`，通过 `\n` 检测区分块级/行内 |
+| `blockquote` | `border-l-4 border-line pl-4 text-muted-foreground` |
+| `h2`/`h3` | 自定义字号 + `font-semibold tracking-tight` |
+| `hr` | `border-line` |
+
+### 11.3 修复记录
+
+| 问题 | 原因 | 修复 |
+|------|------|------|
+| 列表项丢失（9→53） | li 处理顺序错误（`</li>` 先于 `<li>` 匹配被替换） | 先匹配 `<li>...</li>` 再替换 `</li>` |
+| 列表内加粗丢失 | 列表处理时 strip 了 HTML 标签 | 先处理 `<strong>` 再处理 `<li>` |
+| 多层级列表变平 | 未追踪 ul 嵌套深度 | `_process_lists` 追踪 depth 并加缩进 |
+| 列表/表格后内容粘连 | 缺少空白行分隔 | 自动在列表/表格结束后补空白行 |
+| 代码块颜色太浅 | 未设置 `text-foreground` | 添加 `text-foreground` |
+| 代码块不可换行 | `pre` 默认 `white-space: pre` | 改用 `whitespace-pre-wrap break-words` |
+| 表格边框重叠 | `border` 全包围导致 | 改用 `border-r` + `last:border-r-0`，行底边用 `tr border-b` |
+| 行号污染 | `read_file` 返回带行号内容，直接写回 | 改为 `open()` 直接读写，绕过 `read_file` |
+
+### 11.4 文章首图规范
+- 封面图使用文章第一篇图片
+- 正文中移除该图片（避免封面与正文重复）
+- BZBS 文章：✅ 已移除
+- OTP 文章：✅ 已移除
+
