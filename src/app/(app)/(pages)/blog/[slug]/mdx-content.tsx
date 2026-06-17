@@ -7,20 +7,21 @@ import type { Components } from "react-markdown"
 
 const components: Components = {
   table: ({ children }) => (
-    <div className="overflow-x-auto my-4">
-      <table className="min-w-full border-collapse border border-edge text-sm">
-        {children}
-      </table>
+    <div className="w-full overflow-x-auto my-4">
+      <table className="w-full border-collapse border border-edge text-sm">{children}</table>
     </div>
   ),
   thead: ({ children }) => (
-    <thead className="bg-muted/50">{children}</thead>
+    <thead className="bg-muted/50 border-b border-edge">{children}</thead>
+  ),
+  tr: ({ children }) => (
+    <tr className="border-b border-edge last:border-b-0">{children}</tr>
   ),
   th: ({ children }) => (
-    <th className="border border-edge px-3 py-2 text-left font-medium">{children}</th>
+    <th className="border-r border-edge px-3 py-2 text-left font-medium last:border-r-0">{children}</th>
   ),
   td: ({ children }) => (
-    <td className="border border-edge px-3 py-2">{children}</td>
+    <td className="border-r border-edge px-3 py-2 last:border-r-0">{children}</td>
   ),
   pre: ({ children }) => (
     <pre className="my-4 overflow-x-auto rounded-lg border border-edge bg-muted/30 p-4 text-sm leading-relaxed text-foreground whitespace-pre-wrap break-words">
