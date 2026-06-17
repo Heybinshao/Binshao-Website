@@ -20,7 +20,7 @@ export function PostItem({
   return (
     <Link
       href={`/blog/${post.slug}` as any as React.ComponentPropsWithoutRef<typeof Link>['href']}
-      className="group/post flex flex-col gap-2 p-2 max-sm:screen-line-before max-sm:screen-line-after sm:nth-[2n+1]:screen-line-before sm:nth-[2n+1]:screen-line-after"
+      className="group/post flex h-full flex-col gap-2 p-2 max-sm:screen-line-before max-sm:screen-line-after sm:nth-[2n+1]:screen-line-before sm:nth-[2n+1]:screen-line-after"
     >
       {post.metadata.image && (
         <div className="relative select-none [&_img]:aspect-1200/630 [&_img]:rounded-xl">
