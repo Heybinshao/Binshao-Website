@@ -8,7 +8,8 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const response = await fetch(decodeURIComponent(url), {
+    const decodedUrl = decodeURIComponent(url)
+    const response = await fetch(decodedUrl, {
       headers: {
         "User-Agent":
           "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36",
@@ -22,11 +23,25 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    const blob = await response.blob()
+    const contentType = response.headers.get("content-type") || ""
+    const isVideo = contentType.startsWith("video/")
 
+    if (isVideo) {
+      // Stream video response — required for large files
+      return new NextResponse(response.body, {
+        headers: {
+          "Content-Type": contentType,
+          "Cache-Control": "public, max-age=86400",
+          "Accept-Ranges": "bytes",
+        },
+      })
+    }
+
+    // Image — buffer and cache
+    const blob = await response.blob()
     return new NextResponse(blob, {
       headers: {
-        "Content-Type": response.headers.get("content-type") || "image/jpeg",
+        "Content-Type": contentType || "image/jpeg",
         "Cache-Control": "public, max-age=604800, immutable",
       },
     })
@@ -36,11 +51,4 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     )
   }
-
-  // No-op for video streaming (returned from try block above)
-  // Videos are handled the same way — just pass through with correct User-Agent
-}
-
-export const config = {
-  runtime: "nodejs",
 }
