@@ -28,7 +28,8 @@ const components: Components = {
     </pre>
   ),
   code: ({ className, children, ...props }) => {
-    const isInline = !className
+    const content = Array.isArray(children) ? children.join('') : String(children || '')
+    const isInline = !className && !content.includes('\n')
     if (isInline) {
       return (
         <code
