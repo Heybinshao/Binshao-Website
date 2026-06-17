@@ -17,6 +17,7 @@ export const LICENSE = {
 }
 
 export const META_THEME_COLORS = {
+  sunny: "#f5f1ea",
   light: "#ffffff",
   dark: "#09090b",
 }
