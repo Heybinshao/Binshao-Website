@@ -129,3 +129,70 @@ stripe-divider h-8（斜纹，无线，与 footer 隔离）
 
 ### 6.3 Vercel 旧部署清理
 - 删除 117 个历史部署记录，仅保留最新 1 个
+
+---
+
+## 7. 工具栏改造
+
+### 7.1 Copy Page 改为复制 MD 正文
+- **旧**：`LLMCopyButtonWithViewOptions`（复制链接 + View Options 下拉菜单）
+- **新**：`CopyMDButton`（`src/app/(app)/(pages)/blog/[slug]/copy-md-button.tsx`），点击直接复制文章的 Markdown 正文
+
+### 7.2 分享按钮中文化
+| 旧 | 新 |
+|---|---|
+| Copy link | 复制链接 |
+| Share on X | 分享到 X |
+| Share on LinkedIn | ❌ 移除 |
+| — | ✅ 分享到微信（复制链接） |
+| Other app | 其他应用 |
+
+---
+
+## 8. 图片代理
+
+### 8.1 新增 `/api/img` 代理路由
+- `src/app/api/img/route.ts`
+- 服务端代理：用微信 User-Agent + Referer 请求微信 CDN，绕过跨域拦截
+- 图片缓存一周（`Cache-Control: max-age=604800`）
+- 视频流式传输支持
+- 引用方式：`/api/img?url=ENCODED_WECHAT_URL`
+
+### 8.2 封面图规范
+- 封面图使用文章首图，不额外指定其他图片
+- 代理 URL 必须包含 `wx_fmt=jpeg` / `wx_fmt=png` 参数，否则微信 CDN 返回 400
+
+---
+
+## 9. 边线/布局修复（后续轮次）
+
+### 9.1 PostItem 卡片高度跟随网格行
+- **问题**：PostItem 的 `<Link>` 没有 `h-full`，`screen-line-after` 底线定位在自身内容底部，当同行另一卡片标题更长时，底线不跟随网格行高下移
+- **修复**：PostItem 的 `<Link>` 添加 `h-full`
+
+### 9.2 Footer 上方统一定位
+- 博客页：`PostList(screen-line-after)` → `screen-line-before`（横线） → `stripe-divider h-8` → `footer screen-line-before`
+- 详情页：底部工具条 `(screen-line-after)` → `stripe-divider h-8` → `footer screen-line-before`
+- 主页：`StripeSeparator`（自带的 h-8 斜纹+边框）→ `footer screen-line-before`
+
+### 9.3 主页博客版块去重边线
+- **问题**：`<li>` 有 `screen-line-top/bottom`，PostItem 的 `<Link>` 也有 `screen-line-before/after`，两套 ::before/::after 同一位置 → 2px
+- **修复**：移除 `<li>` 上的边线，仅保留 PostItem 自身
+
+### 9.4 详情页底部边线重叠
+- **问题**：底部工具条 `screen-line-after` + 外部 `screen-line-before` 同一 Y 坐标 → 2px
+- **修复**：移除外部 `screen-line-before`，仅保留 toolbar 底线 + stripe + footer 线
+
+---
+
+## 10. 内容更新（最终）
+
+### 当前博客文章
+| slug | 标题 | 来源 |
+|------|------|------|
+| `bzbs-ppt-plugin` | 受不了了！我给自己写了个PPT插件 | 公众号转载 |
+| `office-tool-plus` | 还在苦苦寻找OFFICE安装包？快试试这个神器工具 | 公众号转载 |
+
+### 已移除的 huazi 文章
+`ai-tools-website-workflow`, `blueweekly-to-design-stroll`, `design-stroll-2025-review`, `design-stroll-workflow`, `ios-widgets-web-statistics`, `rive-button-preview`, `rive-preview-plugin-retrospective`, `wechat-coze-aianswer`
+
