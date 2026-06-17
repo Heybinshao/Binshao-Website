@@ -87,6 +87,22 @@ export function SiteHeader() {
     else if (h.classList.contains("dark")) setThemeMode("dark")
     else setThemeMode("light")
   }, [])
+
+  // 监听系统深色模式变化
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)")
+    const handler = (e: MediaQueryListEvent) => {
+      // 只在用户没有手动设置过 localStorage 的情况下跟随系统
+      const theme = localStorage.getItem("theme")
+      const mode = localStorage.getItem("theme-mode")
+      if (theme || mode) return
+      const next = e.matches ? "dark" : "light"
+      applyTheme(next)
+      setThemeMode(next)
+    }
+    mq.addEventListener("change", handler)
+    return () => mq.removeEventListener("change", handler)
+  }, [])
   const [click] = useClickSound()
 
   function applyTheme(mode: "sunny" | "light" | "dark") {

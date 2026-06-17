@@ -36,10 +36,18 @@ const themeScript = String.raw`
     } else if (theme === 'dark') {
       html.classList.add('dark')
       if (meta) meta.setAttribute('content', '${META_THEME_COLORS.dark}')
-    } else {
-      // 无偏好或 light
+    } else if (theme === 'light') {
       html.classList.add('light')
       if (meta) meta.setAttribute('content', '${META_THEME_COLORS.light}')
+    } else {
+      // 无 localStorage 偏好 → 跟随系统
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        html.classList.add('dark')
+        if (meta) meta.setAttribute('content', '${META_THEME_COLORS.dark}')
+      } else {
+        html.classList.add('light')
+        if (meta) meta.setAttribute('content', '${META_THEME_COLORS.light}')
+      }
     }
   } catch (_) {}
 
