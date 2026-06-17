@@ -43,8 +43,8 @@ export function PostItem({
           {post.metadata.title}
         </Heading>
 
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex flex-wrap gap-1.5">
+        <div className="flex items-start justify-between gap-2">
+          <div className="flex flex-wrap gap-1.5 min-w-0">
             {post.metadata.tags?.map((tag: string) => (
               <span
                 key={tag}
@@ -56,7 +56,7 @@ export function PostItem({
             ))}
           </div>
 
-          <dl className="text-sm text-muted-foreground">
+          <dl className="shrink-0 text-sm text-muted-foreground">
             <dt className="sr-only">Published on</dt>
             <dd>
               <time dateTime={new Date(post.metadata.createdAt).toISOString()}>
