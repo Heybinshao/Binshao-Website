@@ -23,7 +23,7 @@ const components: Components = {
     <td className="border border-edge px-3 py-2">{children}</td>
   ),
   pre: ({ children }) => (
-    <pre className="my-4 overflow-x-auto rounded-lg border border-edge bg-muted/30 p-4 text-sm leading-relaxed text-foreground">
+    <pre className="my-4 overflow-x-auto rounded-lg border border-edge bg-muted/30 p-4 text-sm leading-relaxed text-foreground whitespace-pre-wrap break-words">
       {children}
     </pre>
   ),
