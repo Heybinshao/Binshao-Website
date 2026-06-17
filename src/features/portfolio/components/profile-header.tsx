@@ -12,7 +12,7 @@ export function ProfileHeader() {
       </div>
       <div className="flex flex-1 flex-col">
         <div className="flex grow items-end pb-1 pl-4">
-          <div className="line-clamp-1 text-xs select-none max-sm:hidden text-zinc-400">
+          <div className="line-clamp-1 text-xs select-none text-zinc-400">
             待可待之人，望可望之事
           </div>
         </div>

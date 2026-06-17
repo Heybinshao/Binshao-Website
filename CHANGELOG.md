@@ -250,3 +250,21 @@ stripe-divider h-8（斜纹，无线，与 footer 隔离）
 - BZBS 文章：✅ 已移除
 - OTP 文章：✅ 已移除
 
+---
+
+## 12. 主题跟随系统（最终版）
+
+### 规则
+
+| 场景 | 行为 |
+|------|------|
+| 页面加载 | localStorage 优先 → 有则恢复，无则跟系统偏好 |
+| 用户点击主题按钮 | 循环 sunny → light → dark → sunny，写入 localStorage |
+| 系统偏好变化 | **无条件覆盖 localStorage** + 切换主题 |
+| 刷新页面 | 读 localStorage，应用上一次记录 |
+
+### 变更文件
+
+- `src/app/layout.tsx` — `themeScript`：localStorage 优先，无则 `matchMedia`
+- `src/components/site-header.tsx` — `applyTheme` 写 localStorage；系统变化监听器始终覆盖
+
