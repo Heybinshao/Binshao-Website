@@ -6,7 +6,7 @@ import { Hello } from "@/features/portfolio/components/hello"
 import { Overview } from "@/features/portfolio/components/overview"
 import { ProfileCover } from "@/features/portfolio/components/profile-cover"
 import { ProfileHeader } from "@/features/portfolio/components/profile-header"
-import { Projects } from "@/features/portfolio/components/projects"
+// import { Projects } from "@/features/portfolio/components/projects"
 import { SocialLinks } from "@/features/portfolio/components/social-links-v2"
 import { TechStack } from "@/features/portfolio/components/tech-stack"
 import { StripeSeparator } from "@/components/stripe-separator"
@@ -48,8 +48,11 @@ export default function Page() {
         <Blog />
         <StripeSeparator />
 
+        {/*
+        huazi 原创 Projects 版块，数据待替换，暂不启用
         <Projects />
         <StripeSeparator />
+        */}
       </div>
     </>
   )
