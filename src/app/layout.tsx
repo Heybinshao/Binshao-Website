@@ -45,8 +45,9 @@ const themeScript = String.raw`
         html.classList.add('dark')
         if (meta) meta.setAttribute('content', '${META_THEME_COLORS.dark}')
       } else {
-        html.classList.add('light')
-        if (meta) meta.setAttribute('content', '${META_THEME_COLORS.light}')
+        // 默认 sunny 主题
+        html.classList.add('sunny', 'light')
+        if (meta) meta.setAttribute('content', '#f5f1ea')
       }
     }
   } catch (_) {}

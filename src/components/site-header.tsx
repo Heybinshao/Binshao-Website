@@ -96,9 +96,14 @@ export function SiteHeader() {
       const theme = localStorage.getItem("theme")
       const mode = localStorage.getItem("theme-mode")
       if (theme || mode) return
-      const next = e.matches ? "dark" : "light"
-      applyTheme(next)
-      setThemeMode(next)
+      const next = e.matches ? "dark" : "sunny"
+      if (next === "sunny") {
+        applyTheme("sunny")
+        setThemeMode("sunny")
+      } else {
+        applyTheme(next)
+        setThemeMode(next)
+      }
     }
     mq.addEventListener("change", handler)
     return () => mq.removeEventListener("change", handler)
