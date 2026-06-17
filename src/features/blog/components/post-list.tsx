@@ -4,7 +4,7 @@ import { PostItem } from "./post-item"
 
 export function PostList({ posts }: { posts: Doc[] }) {
   return (
-    <div className="relative py-4">
+    <div className="screen-line-after relative py-4">
       <div className="pointer-events-none absolute inset-0 -z-1 grid grid-cols-1 gap-4 max-sm:hidden sm:grid-cols-2">
         <div className="border-r border-edge" />
         <div className="border-l border-edge" />

@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { ArrowRightIcon } from "lucide-react"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/base/ui/button"
 import { PostItem } from "@/features/blog/components/post-item"
 import { getAllDocs } from "@/features/doc/data/documents"
@@ -38,10 +37,6 @@ export function Blog() {
           {allPosts.slice(0, 6).map((post) => (
             <li
               key={post.slug}
-              className={cn(
-                "max-sm:screen-line-top max-sm:screen-line-bottom",
-                "sm:nth-[2n+1]:screen-line-top sm:nth-[2n+1]:screen-line-bottom"
-              )}
             >
               <PostItem post={post} headingAs="h3" imageLoading="lazy" />
             </li>
