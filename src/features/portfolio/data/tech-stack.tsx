@@ -17,4 +17,7 @@ export const TECH_STACK: TechStack[] = [
   { key: "flomo", name: "flomo", title: "flomo", href: "https://flomoapp.com/", iconImage: "/tools/Flomo.jpg", categories: [] },
   { key: "apple-mail", name: "Apple Mail", title: "Apple Mail", iconImage: "/tools/Mail.jpg", categories: [] },
   { key: "clashmac", name: "ClashMac", title: "ClashMac", href: "https://clashmac.app/", iconImage: "/tools/ClashMac.jpg", categories: [] },
+  { key: "obsidian", name: "Obsidian", title: "Obsidian", href: "https://obsidian.md/", iconImage: "/tools/Obsidian.jpg", categories: [] },
+  { key: "xmind", name: "XMind", title: "XMind", href: "https://xmind.app/", iconImage: "/tools/XMind.jpg", categories: [] },
+  { key: "affinity", name: "Affinity", title: "Affinity", href: "https://affinity.serif.com/", iconImage: "/tools/Affinity.jpg", categories: [] },
 ]
