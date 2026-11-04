@@ -12,7 +12,7 @@ export const SITE_INFO = {
 }
 
 export const LICENSE = {
-  name: "MIT License",
+  name: "CC BY-NC 4.0",
   url: "https://github.com/HeyBinshao/Binshao-Website/blob/main/LICENSE",
 }
 

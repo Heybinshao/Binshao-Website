@@ -53,7 +53,7 @@ Please refer to the [Development Guide](./DEVELOPMENT.md) for more details.
 
 ## License
 
-Licensed under the [MIT license](./LICENSE).
+Licensed under the [CC BY-NC 4.0](./LICENSE).
 
 You're free to use my code! Just make sure to <ins>remove all my personal information</ins> before publishing your website. It's awesome to see my code being useful to someone!
 
